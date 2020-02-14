@@ -6,6 +6,8 @@
 package psp_chatclient;
 
 //MANDAREMOS LOS MENSAJES DE ESTA CLASE A LA OTRA???
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,15 +15,18 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static psp_chatclient.UI_Cliente1.ip;
-import static psp_chatclient.UI_Cliente1.puerto;
+import static psp_chatclient.UI_ChatCliente1.ip;
+import static psp_chatclient.UI_ChatCliente1.puerto;
 
-public class UI_Cliente2 extends javax.swing.JFrame {
+public class UI_ChatCliente2 extends javax.swing.JFrame {
+
+    //VARIABLES
+    public static Socket clienteSocket;
 
     /**
      * Creates new form UI_Cliente2
      */
-    public UI_Cliente2() {
+    public UI_ChatCliente2() {
         initComponents();
     }
 
@@ -52,6 +57,11 @@ public class UI_Cliente2 extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtArea1);
 
         btnEnviar.setText("ENVIAR");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Client Chat");
 
@@ -67,19 +77,16 @@ public class UI_Cliente2 extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(0, 351, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                                .addComponent(btnEnviar)))))
+                        .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(btnEnviar)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(161, 161, 161)
@@ -125,23 +132,45 @@ public class UI_Cliente2 extends javax.swing.JFrame {
         try {
 
             System.out.println("***** CREANDO SOCKET CLIENTE *****");
-            Socket clienteSocket = new Socket();
+            clienteSocket = new Socket();
 
             System.out.println("***** ESTABLECIENDO CONEXIÓN CON EL SERVIDOR *****");
             //IP Y PUERTO DEL SERVER
-            InetSocketAddress addr = new InetSocketAddress(UI_Cliente1.ip, UI_Cliente1.puerto);
+            InetSocketAddress addr = new InetSocketAddress(UI_ChatCliente1.ip, UI_ChatCliente1.puerto);
 
             clienteSocket.connect(addr);
-
-            //OPERACIONES
-            InputStream is = clienteSocket.getInputStream();
-            OutputStream os = clienteSocket.getOutputStream();
-
+             //RECIBIR MENSAJES:
+             
+            DataInputStream dis = new DataInputStream(clienteSocket.getInputStream());
+            
+            //DESDE UN HILO NOS PONEMOS A LA ESPERA DE MENSAJES DESDE EL SERVER
+            ChatClienteHIlos h = new ChatClienteHIlos();
+            h.start();
+             
         } catch (IOException ex) {
-            Logger.getLogger(UI_Cliente1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UI_ChatCliente1.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnConectarseActionPerformed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+
+        try {
+            //ENVIAMOS MENSAJES AL SERVIDOR
+
+            DataOutputStream os = new DataOutputStream(clienteSocket.getOutputStream());
+            
+            os.writeUTF(UI_ChatCliente1.nickname+": "+txtMensaje.getText());
+           
+            
+            
+
+        } catch (IOException ex) {
+            Logger.getLogger(UI_ChatCliente2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,20 +189,21 @@ public class UI_Cliente2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UI_Cliente2().setVisible(true);
+                new UI_ChatCliente2().setVisible(true);
             }
         });
     }
@@ -185,7 +215,7 @@ public class UI_Cliente2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInfo1;
-    private javax.swing.JTextArea txtArea1;
+    public static javax.swing.JTextArea txtArea1;
     private javax.swing.JTextField txtMensaje;
     // End of variables declaration//GEN-END:variables
 }

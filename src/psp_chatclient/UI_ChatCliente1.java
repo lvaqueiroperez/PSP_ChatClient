@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author luis-
  */
-public class UI_Cliente1 extends javax.swing.JFrame {
+public class UI_ChatCliente1 extends javax.swing.JFrame {
 
     //VARIABLES
     public static String ip = "";
@@ -27,7 +27,7 @@ public class UI_Cliente1 extends javax.swing.JFrame {
     /**
      * Creates new form UI_Cliente1
      */
-    public UI_Cliente1() {
+    public UI_ChatCliente1() {
         initComponents();
     }
 
@@ -149,7 +149,7 @@ public class UI_Cliente1 extends javax.swing.JFrame {
         puerto = Integer.parseInt(txtPuerto.getText());
         nickname = txtNickname.getText();
         //NOS CONECTAMOS AQUÍ Y MOSTRAMOS LA INTERFAZ 2?
-        UI_Cliente2 ui2 = new UI_Cliente2();
+        UI_ChatCliente2 ui2 = new UI_ChatCliente2();
         ui2.setVisible(true);
         
 
@@ -173,20 +173,21 @@ public class UI_Cliente1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UI_Cliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UI_ChatCliente1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UI_Cliente1().setVisible(true);
+                new UI_ChatCliente1().setVisible(true);
             }
         });
     }

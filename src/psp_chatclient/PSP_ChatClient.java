@@ -4,7 +4,7 @@ public class PSP_ChatClient {
 
     public static void main(String[] args) {
 
-        UI_Cliente1 ui = new UI_Cliente1();
+        UI_ChatCliente1 ui = new UI_ChatCliente1();
         ui.setVisible(true);
 
     }
