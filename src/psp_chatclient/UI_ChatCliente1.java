@@ -148,10 +148,9 @@ public class UI_ChatCliente1 extends javax.swing.JFrame {
         ip = txtIP.getText();
         puerto = Integer.parseInt(txtPuerto.getText());
         nickname = txtNickname.getText();
-        //NOS CONECTAMOS AQUÍ Y MOSTRAMOS LA INTERFAZ 2?
+        //MOSTRAMOS LA INTERFAZ 2 Y SALIMOS DE ESTA
         UI_ChatCliente2 ui2 = new UI_ChatCliente2();
         ui2.setVisible(true);
-        
 
 
     }//GEN-LAST:event_btnEntrarActionPerformed
