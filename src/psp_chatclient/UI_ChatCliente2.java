@@ -131,25 +131,30 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConectarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarseActionPerformed
-
+        
         try {
-
+            
             System.out.println("***** CREANDO SOCKET CLIENTE *****");
-
+            
             clienteSocket = new Socket();
-
+            
             System.out.println("***** ESTABLECIENDO CONEXIÓN CON EL SERVIDOR *****");
             //REALIZAMOS EL BIND,RECOGEMOS LA IP Y PUERTO DEL SERVER DE LA OTRA CLASE
             InetSocketAddress addr = new InetSocketAddress(UI_ChatCliente1.ip, UI_ChatCliente1.puerto);
             //NOS CONECTAMOS AL SERVER Y ASÍ PODREMOS USAR ESTA VARIABLE EN OTRAS CLASES ESTANDO YA CONECTADA Y OPERATIVA
             clienteSocket.connect(addr);
 
-            //DESDE UN HILO NOS PONEMOS A LA ESPERA DE MENSAJES DESDE EL SERVER
-            DataInputStream dis = new DataInputStream(clienteSocket.getInputStream());
+            //ENVIAMOS EL NICKNAME,IP Y PUERTO AL SERVER
+            DataOutputStream dos = new DataOutputStream(clienteSocket.getOutputStream());
+            dos.writeUTF(UI_ChatCliente1.nickname);
+            dos.writeUTF(UI_ChatCliente1.ip);
+            //LO ENVIAMOS COMO STRING DE MOMENTO
+            dos.writeUTF(Integer.toString(UI_ChatCliente1.puerto));
 
+            //DESDE UN HILO NOS PONEMOS A LA ESPERA DE MENSAJES DESDE EL SERVER
             ChatClienteHIlos h = new ChatClienteHIlos();
             h.start();
-
+            
         } catch (IOException ex) {
             Logger.getLogger(UI_ChatCliente1.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -157,30 +162,30 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConectarseActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-
+        
         try {
-
+            
             if (txtMensaje.getText().equals("/bye")) {
-
+                
                 System.out.println("SALIENDO DEL CLIENTE");
                 //PARA SALIR DEL PROGRAMA:
-                
+
                 System.exit(0);
                 
             } else {
                 //ENVIAMOS MENSAJES AL SERVIDOR JUNTO AL NICKNAME DEL CLIENTE
                 DataOutputStream os = new DataOutputStream(clienteSocket.getOutputStream());
-
+                
                 os.writeUTF(UI_ChatCliente1.nickname + ": " + txtMensaje.getText());
                 //LIMPIAMOS LA CELDA
                 txtMensaje.setText("");
-
+                
             }
-
+            
         } catch (IOException ex) {
             Logger.getLogger(UI_ChatCliente2.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
 
     }//GEN-LAST:event_btnEnviarActionPerformed
 
