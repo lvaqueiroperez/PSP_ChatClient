@@ -13,6 +13,7 @@ public class ChatClienteHIlos extends Thread {
             //ESPERAMOS POR MENSAJES DEL SERVER:
             //ACCEDEMOS CON EL MISMO SOCKET DE LA CLASE ANTERIOR !!!
             while (true) {
+
                 DataInputStream dis = new DataInputStream(UI_ChatCliente2.clienteSocket.getInputStream());
 
                 String msg = dis.readUTF();
