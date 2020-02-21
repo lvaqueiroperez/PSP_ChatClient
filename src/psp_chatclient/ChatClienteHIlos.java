@@ -22,7 +22,8 @@ public class ChatClienteHIlos extends Thread {
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(ChatClienteHIlos.class.getName()).log(Level.SEVERE, null, ex);
+            //UTILIZAMOS ESTA EXCEPCIÓN PARA SABER SI EL SERVER SE HA DESCONECTADO
+            UI_ChatCliente2.txtArea1.setText(UI_ChatCliente2.txtArea1.getText() + "\n***** EL SERVER SE HA DESCONECTADO *****");
         }
 
     }

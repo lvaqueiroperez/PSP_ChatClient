@@ -182,6 +182,12 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
                 if (txtMensaje.getText().equals("/bye")) {
 
                     System.out.println("SALIENDO DEL CLIENTE");
+
+                    //INFORMAMOS AL SERVER DE QUE NOS DESCONECTAMOS:
+                    DataOutputStream os = new DataOutputStream(clienteSocket.getOutputStream());
+                    
+                    os.writeUTF("/bye");
+
                     //PARA SALIR DEL PROGRAMA:
                     clienteSocket.close();
 
@@ -189,9 +195,9 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
 
                 } else {
                     //ENVIAMOS MENSAJES AL SERVIDOR JUNTO AL NICKNAME DEL CLIENTE
-                    DataOutputStream os = new DataOutputStream(clienteSocket.getOutputStream());
+                    DataOutputStream os2 = new DataOutputStream(clienteSocket.getOutputStream());
 
-                    os.writeUTF(UI_ChatCliente1.nickname + ": " + txtMensaje.getText());
+                    os2.writeUTF(UI_ChatCliente1.nickname + ": " + txtMensaje.getText());
                     //LIMPIAMOS LA CELDA
                     txtMensaje.setText("");
 
