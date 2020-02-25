@@ -55,13 +55,23 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
         btnConectarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         lblInfo1.setText("Conectado a...");
 
         txtArea1.setColumns(20);
         txtArea1.setRows(5);
+        txtArea1.setDisabledTextColor(new java.awt.Color(51, 153, 255));
+        txtArea1.setEnabled(false);
         jScrollPane1.setViewportView(txtArea1);
 
+        btnEnviar.setMnemonic('E');
         btnEnviar.setText("ENVIAR");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +195,7 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
 
                     //INFORMAMOS AL SERVER DE QUE NOS DESCONECTAMOS:
                     DataOutputStream os = new DataOutputStream(clienteSocket.getOutputStream());
-                    
+
                     os.writeUTF("/bye");
 
                     //PARA SALIR DEL PROGRAMA:
@@ -209,6 +219,26 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+        System.out.println("***** INFORMANDO AL SERVER DE QUE SE HA DESCONECTADO *****");
+
+        //INFORMAMOS AL SERVER DE QUE NOS DESCONECTAMOS:
+        DataOutputStream os;
+        try {
+            os = new DataOutputStream(clienteSocket.getOutputStream());
+
+            os.writeUTF("/bye");
+
+            //PARA SALIR DEL PROGRAMA:
+            clienteSocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(UI_ChatCliente2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

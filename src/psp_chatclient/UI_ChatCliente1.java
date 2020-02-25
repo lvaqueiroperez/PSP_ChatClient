@@ -150,6 +150,8 @@ public class UI_ChatCliente1 extends javax.swing.JFrame {
         nickname = txtNickname.getText();
         //MOSTRAMOS LA INTERFAZ 2 Y SALIMOS DE ESTA
         UI_ChatCliente2 ui2 = new UI_ChatCliente2();
+        //OCULTAMOS ESTA VENTANA E INICIAMOS LA OTRA
+        this.setVisible(false);
         ui2.setVisible(true);
 
 
