@@ -12,6 +12,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +24,8 @@ public class UI_ChatCliente1 extends javax.swing.JFrame {
     public static String ip = "";
     public static int puerto = 0;
     public static String nickname = "default";
+
+    public static int permisoCon = 0;
 
     /**
      * Creates new form UI_Cliente1
@@ -145,14 +148,48 @@ public class UI_ChatCliente1 extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
-        ip = txtIP.getText();
-        puerto = Integer.parseInt(txtPuerto.getText());
-        nickname = txtNickname.getText();
-        //MOSTRAMOS LA INTERFAZ 2 Y SALIMOS DE ESTA
-        UI_ChatCliente2 ui2 = new UI_ChatCliente2();
-        //OCULTAMOS ESTA VENTANA E INICIAMOS LA OTRA
-        this.setVisible(false);
-        ui2.setVisible(true);
+        int parse = 0;
+
+        do {
+
+            //COMPROBAMOS SI EL PUERTO SON CARACTERES NUMÉRICOS:
+            try {
+
+                Integer.parseInt(txtPuerto.getText());
+                parse = 1;
+
+            } catch (NumberFormatException e) {
+                parse = 0;
+                JOptionPane.showMessageDialog(null, "EL PUERTO SOLO PUEDE TENER CARACTERES NUMÉRICOS");
+            }
+
+            if (parse == 0) {
+                break;
+            }
+
+            if ((txtPuerto.getText().length() < 4) || (txtPuerto.getText().length() > 4)) {
+                JOptionPane.showMessageDialog(null, "EL PUERTO SOLO PUEDE TENER 4 NÚMEROS");
+                break;
+            }
+
+            if ((txtIP.getText().equals("")) || (txtPuerto.getText().equals("")) || (txtNickname.getText().equals(""))) {
+                JOptionPane.showMessageDialog(null, "NINGÚN CAMPO PUEDE QUEDAR EN BLANCO");
+                //PARA SALIR DEL BUCLE
+                break;
+
+            } else {
+                permisoCon = 1;
+
+                ip = txtIP.getText();
+                puerto = Integer.parseInt(txtPuerto.getText());
+                nickname = txtNickname.getText();
+                //MOSTRAMOS LA INTERFAZ 2 Y SALIMOS DE ESTA
+                UI_ChatCliente2 ui2 = new UI_ChatCliente2();
+                //OCULTAMOS ESTA VENTANA E INICIAMOS LA OTRA
+                this.setVisible(false);
+                ui2.setVisible(true);
+            }
+        } while (permisoCon == 0);
 
 
     }//GEN-LAST:event_btnEntrarActionPerformed

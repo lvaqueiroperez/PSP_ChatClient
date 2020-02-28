@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import static java.lang.Thread.sleep;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,7 +28,7 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
     //donde podemos instanciar un objeto DESPUÉS
     public static Socket clienteSocket;
     //PARA COMPROBAR SI SE HA CONECTADO ANTES DE ENVIAR EL MENSAJE
-    private int estado = 0;
+    public static int estado = 0;
 
     /**
      * Creates new form UI_Cliente2
@@ -152,31 +153,38 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
 
             try {
 
+                //INFORMAMOS DE QUE SE HA CONECTADO
+                JOptionPane.showMessageDialog(this, "CONECTANDO A LA SALA DE CHAT");
+
                 System.out.println("***** CREANDO SOCKET CLIENTE *****");
 
                 clienteSocket = new Socket();
 
                 System.out.println("***** ESTABLECIENDO CONEXIÓN CON EL SERVIDOR *****");
                 //REALIZAMOS EL BIND,RECOGEMOS LA IP Y PUERTO DEL SERVER DE LA OTRA CLASE
+                //INET SOCKET ADDRESS SIEMPRE USA COMO IP UN STRING !!!!
                 InetSocketAddress addr = new InetSocketAddress(UI_ChatCliente1.ip, UI_ChatCliente1.puerto);
                 //NOS CONECTAMOS AL SERVER Y ASÍ PODREMOS USAR ESTA VARIABLE EN OTRAS CLASES ESTANDO YA CONECTADA Y OPERATIVA
                 clienteSocket.connect(addr);
-                //INFORMAMOS DE QUE SE HA CONECTADO
-                JOptionPane.showMessageDialog(this, "CONECTADO A LA SALA DE CHAT");
 
-                //ENVIAMOS EL NICKNAME,IP Y PUERTO AL SERVER
+                //DESDE UN HILO NOS PONEMOS A LA ESPERA DE MENSAJES DESDE EL SERVER
+                ChatClienteHIlos h = new ChatClienteHIlos();
+                h.start();
+
+                //ENVIAMOS EL NICKNAME,IP Y PUERTO AL SERVER, SI EL SERVER ESTÁ LLENO LOS IGNORARÁ YA QUE NO SE CONECTARÁ A ÉL
                 DataOutputStream dos = new DataOutputStream(clienteSocket.getOutputStream());
                 dos.writeUTF(UI_ChatCliente1.nickname);
                 dos.writeUTF(UI_ChatCliente1.ip);
                 //LO ENVIAMOS COMO STRING DE MOMENTO
                 dos.writeUTF(Integer.toString(UI_ChatCliente1.puerto));
 
-                //DESDE UN HILO NOS PONEMOS A LA ESPERA DE MENSAJES DESDE EL SERVER
-                ChatClienteHIlos h = new ChatClienteHIlos();
-                h.start();
-
+                //SI NOS CONECTAMOS CON EL PUERTO INCORRECTO O IP INCORRECTA, SALTARÁ ESTA EXCEPCIÓN:
             } catch (IOException ex) {
                 Logger.getLogger(UI_ChatCliente1.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "IP O PUERTO INCORRECTOS");
+                estado = 0;
+                //SALIR O CONTINUAR??????
+                //REINICIAR???
             }
 
         }

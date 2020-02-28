@@ -17,6 +17,11 @@ public class ChatClienteHIlos extends Thread {
                 DataInputStream dis = new DataInputStream(UI_ChatCliente2.clienteSocket.getInputStream());
 
                 String msg = dis.readUTF();
+                //CAMBIAMOS EL ESTADO SI EL SERVER NOS DICE QUE ESTÁ LLENO
+                if (msg.equals("SERVER LLENO")) {
+                    UI_ChatCliente2.estado = 0;
+                }
+
                 UI_ChatCliente2.txtArea1.setText(UI_ChatCliente2.txtArea1.getText() + "\n" + msg);
 
             }
