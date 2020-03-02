@@ -183,8 +183,10 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
                 Logger.getLogger(UI_ChatCliente1.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "IP O PUERTO INCORRECTOS");
                 estado = 0;
-                //SALIR O CONTINUAR??????
-                //REINICIAR???
+                
+                UI_ChatCliente1 obj = new UI_ChatCliente1();
+                obj.setVisible(true);
+                this.setVisible(false);
             }
 
         }
