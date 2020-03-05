@@ -51,12 +51,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="351" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="453" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="txtMensaje" min="-2" pref="291" max="-2" attributes="0"/>
-                          <EmptySpace pref="44" max="32767" attributes="0"/>
+                          <EmptySpace pref="178" max="32767" attributes="0"/>
                           <Component id="btnEnviar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -89,7 +89,7 @@
                       <Component id="btnEnviar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtMensaje" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="70" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

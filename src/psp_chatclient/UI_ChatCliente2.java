@@ -98,11 +98,11 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 351, Short.MAX_VALUE))
+                        .addGap(0, 453, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                         .addComponent(btnEnviar)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -127,7 +127,7 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnviar)
                     .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
