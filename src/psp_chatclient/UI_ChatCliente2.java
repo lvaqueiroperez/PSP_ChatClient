@@ -183,7 +183,7 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
                 Logger.getLogger(UI_ChatCliente1.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "IP O PUERTO INCORRECTOS");
                 estado = 0;
-                
+
                 UI_ChatCliente1 obj = new UI_ChatCliente1();
                 obj.setVisible(true);
                 this.setVisible(false);
@@ -207,6 +207,10 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
                     DataOutputStream os = new DataOutputStream(clienteSocket.getOutputStream());
 
                     os.writeUTF("/bye");
+                    //TENEMOS QUE GUARDAR EL CONTENIDO DE CADA TXTAREA PARA QUE, SI SE CONECTA UN MISMO
+                    //USER, TENGA GUARDADO EL HISTORIAL DEL CHAT SIEMRPE
+                    //PARA ELLO, ANTES DE DESCONECTARNOS POR CUALQUIER MOTIVO TENDREMOS QUE ENVIAR
+                    //EL CONTENIDO DE TODO EL TXTAREA AL SERVER
 
                     //PARA SALIR DEL PROGRAMA:
                     clienteSocket.close();
@@ -229,7 +233,7 @@ public class UI_ChatCliente2 extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
-
+    //PARA QUE SE CIERRE EL CLIENTE SI LE DAMOS A LA "X" EN LA VENTANA
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 
         System.out.println("***** INFORMANDO AL SERVER DE QUE SE HA DESCONECTADO *****");
